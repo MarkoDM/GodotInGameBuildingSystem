@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://cqpss2omyejgp"]
+
+[ext_resource type="PackedScene" uid="uid://5cjfy4o0nxhy" path="res://BuildingSystem/assets/scenes/survival/fence_doorway.tscn" id="1_ctg08"]
+[ext_resource type="Texture2D" uid="uid://dlyjb5glpqbov" path="res://BuildingSystem/assets/textures/fence-doorway.png" id="2_8duof"]
+[ext_resource type="Script" path="res://BuildingSystem/Scripts/Resources/BuildableResource.cs" id="3_b3ky4"]
+
+[resource]
+script = ExtResource("3_b3ky4")
+Name = "fence-doorway"
+Description = ""
+TextureImage = ExtResource("2_8duof")
+Object3DModel = ExtResource("1_ctg08")
+SnapBehaviour = 1
+Size = Vector3i(1, 1, 0)

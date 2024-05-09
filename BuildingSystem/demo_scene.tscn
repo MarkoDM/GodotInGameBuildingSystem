@@ -1,0 +1,164 @@
+[gd_scene load_steps=10 format=3 uid="uid://dri8wibq34tr1"]
+
+[ext_resource type="PackedScene" uid="uid://cadmckblsurkv" path="res://BuildingSystem/scenes/building_system.tscn" id="1_yrvka"]
+[ext_resource type="Resource" uid="uid://ckr31npmaemtt" path="res://BuildingSystem/assets/resources/complete_object_library.tres" id="2_7xl3i"]
+[ext_resource type="Texture2D" uid="uid://dl5itkkntlrbd" path="res://BuildingSystem/assets/textures/grass.png" id="2_j3g63"]
+[ext_resource type="Script" path="res://BuildingSystem/Scripts/Utils/CameraController.cs" id="3_23awc"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_34pcr"]
+
+[sub_resource type="Sky" id="Sky_ahyin"]
+sky_material = SubResource("ProceduralSkyMaterial_34pcr")
+
+[sub_resource type="Environment" id="Environment_e8oi8"]
+background_mode = 2
+sky = SubResource("Sky_ahyin")
+ambient_light_color = Color(0.0196078, 0.792157, 0.745098, 1)
+tonemap_mode = 1
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+fog_light_color = Color(0.427451, 0.568627, 0.694118, 1)
+volumetric_fog_enabled = true
+volumetric_fog_emission = Color(0, 0.415686, 0.498039, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5cog7"]
+albedo_color = Color(0.717647, 0.603922, 0.388235, 1)
+albedo_texture = ExtResource("2_j3g63")
+normal_texture = ExtResource("2_j3g63")
+heightmap_texture = ExtResource("2_j3g63")
+uv1_scale = Vector3(200, 200, 200)
+texture_filter = 1
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_i6v8j"]
+material = SubResource("StandardMaterial3D_5cog7")
+size = Vector2(200, 200)
+subdivide_width = 200
+subdivide_depth = 200
+
+[node name="Root" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.965926, 0.258819, 3.85671e-09, 0.0669873, -0.25, 0.965926, 0.25, -0.933013, -0.258819, 0, 1, 0)
+light_color = Color(0.866667, 0.905882, 0.882353, 1)
+light_energy = 0.711
+light_indirect_energy = 0.422
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_e8oi8")
+
+[node name="BuildingSystem" parent="." node_paths=PackedStringArray("MainCamera") instance=ExtResource("1_yrvka")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0636532, 0)
+MainCamera = NodePath("../CameraController/Camera3D")
+BuildableObjectLibrary = ExtResource("2_7xl3i")
+
+[node name="GroundVisual" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
+mesh = SubResource("PlaneMesh_i6v8j")
+
+[node name="CameraController" type="Node3D" parent="."]
+script = ExtResource("3_23awc")
+
+[node name="Camera3D" type="Camera3D" parent="CameraController"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 4, 0)
+current = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ControlsInfo" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -60.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 60.0
+grow_horizontal = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/ControlsInfo"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -192.0
+offset_bottom = 102.0
+grow_horizontal = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/ControlsInfo/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="GridContainer" type="GridContainer" parent="UI/ControlsInfo/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 20
+columns = 2
+
+[node name="RotateCamera" type="Label" parent="UI/ControlsInfo/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Rotate camera"
+vertical_alignment = 1
+
+[node name="RotateCameraLabel" type="Label" parent="UI/ControlsInfo/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Q E"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MoveCamera" type="Label" parent="UI/ControlsInfo/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Move camera"
+vertical_alignment = 1
+
+[node name="MoveCameraLabel" type="Label" parent="UI/ControlsInfo/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "W A S D"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BuildMode" type="Label" parent="UI/ControlsInfo/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Build Mode"
+vertical_alignment = 1
+
+[node name="BuildModeLabel" type="Label" parent="UI/ControlsInfo/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "B"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DemolitionMode" type="Label" parent="UI/ControlsInfo/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Demolition Mode"
+vertical_alignment = 1
+
+[node name="DemolitionModeLabel" type="Label" parent="UI/ControlsInfo/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Delete"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Menu" type="Label" parent="UI/ControlsInfo/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Menu"
+vertical_alignment = 1
+
+[node name="MenuLabel" type="Label" parent="UI/ControlsInfo/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Esc"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ChangeLevel" type="Label" parent="UI/ControlsInfo/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "ChangeLevel"
+vertical_alignment = 1
+
+[node name="ChangeLevelLabel" type="Label" parent="UI/ControlsInfo/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "PageUp PageDown"
+horizontal_alignment = 1
+vertical_alignment = 1

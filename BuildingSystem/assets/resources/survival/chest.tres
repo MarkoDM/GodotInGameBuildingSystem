@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://c0sfhi27ynal1"]
+
+[ext_resource type="PackedScene" uid="uid://b0e36jdhalo6a" path="res://BuildingSystem/assets/scenes/survival/chest.tscn" id="1_8gkny"]
+[ext_resource type="Texture2D" uid="uid://bf345k8c5t3qd" path="res://BuildingSystem/assets/textures/chest.png" id="2_3rcaq"]
+[ext_resource type="Script" path="res://BuildingSystem/Scripts/Resources/BuildableResource.cs" id="2_rpua4"]
+
+[resource]
+script = ExtResource("2_rpua4")
+Name = "Chest"
+Description = ""
+TextureImage = ExtResource("2_3rcaq")
+Object3DModel = ExtResource("1_8gkny")
+SnapBehaviour = 2
+Size = Vector3i(0, 0, 0)

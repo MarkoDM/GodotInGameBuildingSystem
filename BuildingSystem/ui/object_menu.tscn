@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://cs2213xujdhn8"]
+
+[ext_resource type="Script" path="res://BuildingSystem/Scripts/UI/ObjectMenu.cs" id="1_lc16p"]
+
+[node name="ObjectMenu" type="PanelContainer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+script = ExtResource("1_lc16p")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="ObjectGrid" type="GridContainer" parent="MarginContainer"]
+layout_mode = 2
+columns = 9

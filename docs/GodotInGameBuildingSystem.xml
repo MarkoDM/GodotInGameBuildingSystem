@@ -1,0 +1,882 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GodotInGameBuildingSystem</name>
+    </assembly>
+    <members>
+        <member name="T:Godot.GodotInGameBuildingSystem.BuildableInstance">
+            <summary> Represents an instance of a buildable object in the grid building system. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.BuildableInstance.BuildableResource">
+            <summary> Gets the buildable resource associated with this instance. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.BuildableInstance.ObjectInstance">
+            <summary> Gets the object instance of the buildable resource. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BuildableInstance.Create(Godot.GodotInGameBuildingSystem.BuildableResource,System.UInt32)">
+            <summary> Creates a new instance of the <see cref="T:Godot.GodotInGameBuildingSystem.BuildableInstance"/> class with the specified buildable resource and layer mask. </summary>
+            <remarks> This will instantiate the 3D object of the buildable resource and create a collider for it. </remarks>
+            <param name="resource">The buildable resource.</param>
+            <param name="layerMask">The layer mask.</param>
+            <returns>The created <see cref="T:Godot.GodotInGameBuildingSystem.BuildableInstance"/>.</returns>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BuildableInstance.AddCell(Godot.GodotInGameBuildingSystem.GridCell)">
+            <summary> Adds a grid cell to the buildable instance. </summary>
+            <param name="cell">The grid cell to add.</param>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BuildableInstance.ClearObject">
+            <summary> Clears the buildable instance and removes it from the grid cells. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BuildableInstance.SetDemolitionView(System.Boolean)">
+            <summary> Sets the demolition view of the buildable instance. </summary>
+            <param name="enabled">A value indicating whether the demolition view is enabled.</param>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.BuildingSystem">
+            <summary>
+            This is the main class and represents a building system in a 3D environment.
+            This class handles object placement, demolition, and other related functionalities.
+            </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.BuildingSystem.MainCamera">
+            <summary> The main camera used in the building system. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.BuildingSystem.BuildableObjectLibrary">
+            <summary> Gets or sets the library of buildable resources. </summary>
+            <remarks> The <see cref="T:Godot.GodotInGameBuildingSystem.BuildableResourceLibrary"/> class represents a collection of <see cref="T:Godot.GodotInGameBuildingSystem.BuildableResource"/>. </remarks>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.BuildingSystem.CellSize">
+            <summary> The size of each cell in the grid. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.BuildingSystem.CellHeight">
+            <summary> The height of each cell in the grid. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.BuildingSystem.GroundLayerMask">
+            <summary> The layer mask for the ground. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.BuildingSystem.FloorLayerMask">
+            <summary> The layer mask for the floor. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.BuildingSystem.WallLayerMask">
+            <summary> The layer mask for the walls. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.BuildingSystem.FreeLayerMask">
+            <summary> The layer mask for free objects. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.BuildingSystem.XSize">
+            <summary> The size of the grid in the X direction. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.BuildingSystem.ZSize">
+            <summary> The size of the grid in the Z direction. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.BuildingSystem.Levels">
+            <summary> The number of levels in the grid. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.BuildingSystem.DragBehavior">
+            <summary> The drag behavior for placing objects. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.BuildingSystem.DragThreshold">
+            <summary> The threshold for delayed placement. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.BuildingSystem.DragVisualGroundOffset">
+            <summary> The offset of the drag visual from the ground. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.BuildingSystem.GroundMouseVisible">
+            <summary> Gets or sets a value indicating whether the ground mouse is visible. </summary>
+            <value><c>true</c> if the ground mouse is visible; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BuildingSystem._Ready">
+            <inheritdoc/>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BuildingSystem._PhysicsProcess(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BuildingSystem._Input(Godot.InputEvent)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BuildingSystem._UnhandledInput(Godot.InputEvent)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BuildingSystem.Save(System.Boolean)">
+            <summary> Saves the current state of the building system. </summary>
+            <param name="overwrite">Whether to overwrite an existing save file.</param>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BuildingSystem.Load(System.String)">
+            <summary> Loads a building system from a file. </summary>
+            <param name="filename">The name of the file to load.</param>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.BuildingSystemGrid">
+            <summary>
+            Represents a grid-based building system in a 3D space.
+            </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.BuildingSystemGrid.GridCells">
+            <summary>
+            Gets or sets the array of grid cells in the building system.
+            </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BuildingSystemGrid._Ready">
+            <inheritdoc/>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BuildingSystemGrid.Initialize(System.Int32,System.Int32,System.Single,System.Single,System.UInt32,System.UInt32,System.UInt32)">
+            <summary> Initializes the building system grid with the specified parameters. </summary>
+            <param name="xSize">The size of the grid along the X-axis.</param>
+            <param name="zSize">The size of the grid along the Z-axis.</param>
+            <param name="cellSize">The size of each grid cell.</param>
+            <param name="cellHeight">The height of each grid cell.</param>
+            <param name="groundLayerMask">The layer mask for the ground objects.</param>
+            <param name="floorLayerMask">The layer mask for the floor objects.</param>
+            <param name="wallLayerMask">The layer mask for the wall objects.</param>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BuildingSystemGrid.SetActive(System.Boolean)">
+            <summary> Sets the active state of the building system grid. </summary>
+            <param name="isActive">The active state of the building system grid.</param>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BuildingSystemGrid.GetGlobalPosition(System.Int32,System.Int32)">
+            <summary> Gets the global position of a cell in the grid. </summary>
+            <param name="x">The X-coordinate of the cell.</param>
+            <param name="z">The Z-coordinate of the cell.</param>
+            <returns>The global position of the cell.</returns>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BuildingSystemGrid.GetCellGlobalPosition(System.Int32,System.Int32)">
+            <summary> Gets the global position of a cell in the grid. </summary>
+            <param name="x">The X-coordinate of the cell.</param>
+            <param name="z">The Z-coordinate of the cell.</param>
+            <returns>The global position of the cell.</returns>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BuildingSystemGrid.GetGridPosition(Godot.Vector3)">
+            <summary> Gets the grid position of a global position. </summary>
+            <param name="globalPosition">The global position.</param>
+            <returns>The grid position.</returns>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BuildingSystemGrid.GetMouseSnappedPosition(Godot.Vector3,Godot.GodotInGameBuildingSystem.MouseObject)">
+            <summary> Gets the snapped position of the mouse on the grid for a buildable object. </summary>
+            <param name="mousePosition">The position of the mouse.</param>
+            <param name="mouseObject">The buildable object to snap to the grid.</param>
+            <returns>The snapped position of the mouse on the grid.</returns>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BuildingSystemGrid.GetGridCell(System.Int32,System.Int32)">
+            <summary> Gets the grid cell at the specified coordinates. </summary>
+            <param name="x">The X-coordinate of the cell.</param>
+            <param name="y">The Y-coordinate of the cell.</param>
+            <returns>The grid cell at the specified coordinates.</returns>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BuildingSystemGrid.IsValidGridIndex(System.Int32,System.Int32)">
+            <summary> Checks if the grid index is valid. </summary>
+            <param name="x">The X-coordinate of the index.</param>
+            <param name="y">The Y-coordinate of the index.</param>
+            <returns>True if the grid index is valid, false otherwise.</returns>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BuildingSystemGrid.TryToPlaceObject(Godot.GodotInGameBuildingSystem.BuildableResource,System.Single,Godot.Vector3)">
+            <summary> Tries to place an object on the grid. </summary>
+            <param name="selectedObject">The object to be placed.</param>
+            <param name="yRotation">The rotation of the object.</param>
+            <param name="position">The position to place the object.</param>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BuildingSystemGrid.ResetGrid">
+            <summary> Resets the building system grid by clearing all objects from the grid cells. </summary>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.EventBus">
+            <summary>
+            Represents main event bus that handles various signals related to the building system and game menus.
+            </summary>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.EventBus.SlotClickedEventHandler">
+            <summary> Signal emitted when a slot is clicked in the building menu. </summary>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.EventBus.LevelChangedEventHandler">
+            <summary> Signal emitted when the level is changed. </summary>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.EventBus.BuildModeChangedEventHandler">
+            <summary> Signal emitted when the build mode is changed. </summary>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.EventBus.DemolitionModeChangedEventHandler">
+            <summary> Signal emitted when the demolition mode is changed. </summary>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.EventBus.NewGameEventHandler">
+            <summary> Signal emitted when a new game is started. </summary>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.EventBus.SaveGameEventHandler">
+            <summary> Signal emitted when the game is saved. </summary>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.EventBus.LoadGameEventHandler">
+            <summary> Signal emitted when a game is loaded. </summary>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.EventBus.ExitGameEventHandler">
+            <summary> Signal emitted when the game is exited. </summary>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.EventBus.ToggleMenuEventHandler">
+            <summary> Signal emitted when the game menu is toggled. </summary>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.EventBus.OpenLoadMenuEventHandler">
+            <summary> Signal emitted when the load menu is opened. </summary>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.EventBus.OpenSaveMenuEventHandler">
+            <summary> Signal emitted when the save menu is opened. </summary>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.EventBus.MouseTileBodyEnteredEventHandler">
+            <summary> Signal emitted when the mouse enters a tile body. </summary>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.EventBus.MouseTileBodyExitedEventHandler">
+            <summary> Signal emitted when the mouse exits a tile body. </summary>
+        </member>
+        <member name="E:Godot.GodotInGameBuildingSystem.EventBus.SlotClicked">
+            <inheritdoc cref="T:Godot.GodotInGameBuildingSystem.EventBus.SlotClickedEventHandler"/>
+        </member>
+        <member name="E:Godot.GodotInGameBuildingSystem.EventBus.LevelChanged">
+            <inheritdoc cref="T:Godot.GodotInGameBuildingSystem.EventBus.LevelChangedEventHandler"/>
+        </member>
+        <member name="E:Godot.GodotInGameBuildingSystem.EventBus.BuildModeChanged">
+            <inheritdoc cref="T:Godot.GodotInGameBuildingSystem.EventBus.BuildModeChangedEventHandler"/>
+        </member>
+        <member name="E:Godot.GodotInGameBuildingSystem.EventBus.DemolitionModeChanged">
+            <inheritdoc cref="T:Godot.GodotInGameBuildingSystem.EventBus.DemolitionModeChangedEventHandler"/>
+        </member>
+        <member name="E:Godot.GodotInGameBuildingSystem.EventBus.NewGame">
+            <inheritdoc cref="T:Godot.GodotInGameBuildingSystem.EventBus.NewGameEventHandler"/>
+        </member>
+        <member name="E:Godot.GodotInGameBuildingSystem.EventBus.SaveGame">
+            <inheritdoc cref="T:Godot.GodotInGameBuildingSystem.EventBus.SaveGameEventHandler"/>
+        </member>
+        <member name="E:Godot.GodotInGameBuildingSystem.EventBus.LoadGame">
+            <inheritdoc cref="T:Godot.GodotInGameBuildingSystem.EventBus.LoadGameEventHandler"/>
+        </member>
+        <member name="E:Godot.GodotInGameBuildingSystem.EventBus.ExitGame">
+            <inheritdoc cref="T:Godot.GodotInGameBuildingSystem.EventBus.ExitGameEventHandler"/>
+        </member>
+        <member name="E:Godot.GodotInGameBuildingSystem.EventBus.ToggleMenu">
+            <inheritdoc cref="T:Godot.GodotInGameBuildingSystem.EventBus.ToggleMenuEventHandler"/>
+        </member>
+        <member name="E:Godot.GodotInGameBuildingSystem.EventBus.OpenLoadMenu">
+            <inheritdoc cref="T:Godot.GodotInGameBuildingSystem.EventBus.OpenLoadMenuEventHandler"/>
+        </member>
+        <member name="E:Godot.GodotInGameBuildingSystem.EventBus.OpenSaveMenu">
+            <inheritdoc cref="T:Godot.GodotInGameBuildingSystem.EventBus.OpenSaveMenuEventHandler"/>
+        </member>
+        <member name="E:Godot.GodotInGameBuildingSystem.EventBus.MouseTileBodyEntered">
+            <inheritdoc cref="T:Godot.GodotInGameBuildingSystem.EventBus.MouseTileBodyEnteredEventHandler"/>
+        </member>
+        <member name="E:Godot.GodotInGameBuildingSystem.EventBus.MouseTileBodyExited">
+            <inheritdoc cref="T:Godot.GodotInGameBuildingSystem.EventBus.MouseTileBodyExitedEventHandler"/>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.GridCell">
+            <summary> Represents a cell in a grid-based building system. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.GridCell.GroundObject">
+            <summary> Gets the ground object placed on this grid cell. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.GridCell.WallObjects">
+            <summary> Gets the wall objects placed on this grid cell. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.GridCell.#ctor">
+            <summary> Initializes a new instance of the <see cref="T:Godot.GodotInGameBuildingSystem.GridCell"/> class. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.GridCell.SetGroundObject(Godot.GodotInGameBuildingSystem.BuildableInstance)">
+            <summary> Sets the ground object on this grid cell. </summary>
+            <param name="buildableInstance">The buildable instance representing the ground object.</param>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.GridCell.ClearGroundObject">
+            <summary> Clears the ground object from this grid cell. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.GridCell.SetWallObject(Godot.GodotInGameBuildingSystem.BuildableInstance,Godot.GodotInGameBuildingSystem.Side)">
+            <summary> Sets the wall object on this grid cell. </summary>
+            <param name="buildableInstance">The buildable instance representing the wall object.</param>
+            <param name="side">The <see cref="T:Godot.GodotInGameBuildingSystem.Side"/>  of the grid cell where the wall object is placed.</param>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.GridCell.ClearWallObject(Godot.GodotInGameBuildingSystem.BuildableInstance)">
+            <summary> Clears the specified wall object from this grid cell. </summary>
+            <param name="wall">The wall object to clear.</param>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.GridCell.ClearWallObject(Godot.GodotInGameBuildingSystem.Side)">
+            <summary> Clears the wall object from the specified side of this grid cell. </summary>
+            <param name="side">The <see cref="T:Godot.GodotInGameBuildingSystem.Side"/> of the grid cell where the wall object is placed.</param>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.GridCell.HasGroundObject">
+            <summary> Determines whether this grid cell has a ground object. </summary>
+            <returns><c>true</c> if this grid cell has a ground object; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.GridCell.HasWallObject(Godot.GodotInGameBuildingSystem.Side)">
+            <summary> Determines whether this grid cell has a wall object on the specified side. </summary>
+            <param name="side">The <see cref="T:Godot.GodotInGameBuildingSystem.Side"/> of the grid cell to check.</param>
+            <returns><c>true</c> if this grid cell has a wall object on the specified side; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.GridCell.GetWallObject(Godot.GodotInGameBuildingSystem.Side)">
+            <summary> Gets the wall object placed on the specified side of this grid cell.</summary>
+            <param name="side">The <see cref="T:Godot.GodotInGameBuildingSystem.Side"/> of the grid cell to get the wall object from.</param>
+            <returns>The wall object placed on the specified side of this grid cell.</returns>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.MouseObject">
+            <summary> Represents a 3D mouse object in a grid building system. </summary>
+            <remarks> This class is used to represent a 3D object that is controlled by the mouse in a grid-based building system. 
+            It contains methods to update the visual representation of the mouse object, rotate the object, check for collisions, and manage the visual collision tile grid.
+            </remarks>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.MouseObject.HasXOffset">
+            <summary> Gets whether the buildable resource has an X offset. </summary>
+            <remarks> The X offset is used as optimization to center the buildable resource on the grid. </remarks>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.MouseObject.HasZOffset">
+            <summary> Gets whether the buildable resource has a Z offset. </summary>
+            <remarks> The Z offset is used as optimization to center the buildable resource on the grid. </remarks>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.MouseObject._Ready">
+            <inheritdoc/>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.MouseObject.SetLayerMask(System.UInt32)">
+            <summary> Sets the layer mask for the mouse tiles.</summary>
+            <param name="layerMask">The layer mask to set.</param>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.MouseObject.UpdateVisual(Godot.GodotInGameBuildingSystem.BuildableResource)">
+            <summary> Updates the visual representation of the mouse object with the specified buildable object. </summary>
+            <param name="buildableObject">The buildable object to update the visual representation with.</param>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.MouseObject.ClearMouseObject">
+            <summary> Clears the mouse object and the grid. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.MouseObject.ClearGrid">
+            <summary> Clears the grid and removes all mouse tiles. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.MouseObject.Rotate(System.Int32)">
+            <summary> Rotates the mouse object and the grid by the specified rotation in degrees. </summary>
+            <param name="rotation">The rotation in degrees.</param>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.MouseObject.HasMouseObject">
+            <summary> Checks if the mouse object exists. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.MouseObject.GetYRotationInRadians">
+            <summary> Gets the Y rotation of the mouse object in radians. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.MouseObject.GetYRotationInDegrees">
+            <summary> Gets the Y rotation of the mouse object in degrees. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.MouseObject.IsColliding">
+            <summary> Checks if the mouse object is colliding. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.MouseObject.AreChildrenColliding">
+            <summary> Checks if any of the mouse object's children are colliding. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.MouseObject.SetTileGridVisible(System.Boolean)">
+            <summary> Sets the visibility of the tile grid. </summary>
+            <param name="visible">Whether the tile grid should be visible or not.</param>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.MouseTile">
+            <summary> Represents a tile that is a part of mouse object visual. </summary>
+            <remarks> 
+            Mouse tile has two states - normal and colliding. When the tile is colliding with another body, it changes its color to red. 
+            This is the place to update the visual representation of the tile when it is colliding with another body.
+            </remarks>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.MouseTile._Ready">
+            <inheritdoc/>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.MouseTile.SetLayerMask(System.UInt32)">
+            <summary> Sets the collision layer mask for the tile. </summary>
+            <param name="layerMask"> The layer mask to set. </param>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.MouseTile.SetSize(System.Int32)">
+            <summary> Sets the size of the tile. </summary>
+            <param name="size"> The size of the tile. </param>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.MouseTile.SetVisibility(System.Boolean)">
+            <summary> Sets the visibility of the tile. </summary>
+            <param name="visible"> Whether the tile should be visible or not. </param>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.MouseTile.IsColliding">
+            <summary> Checks if the tile is currently colliding with any other bodies. </summary>
+            <returns> True if the tile is colliding, false otherwise. </returns>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.BuildableResource">
+            <summary> Represents a buildable resource in the grid building system. </summary>
+            <remarks> 
+            Every object that can be built in the grid building system needs to be a buildable resource.
+            Creating a buildable resource allows you to define the visual representation of the object, its size, snap behavior, and other properties.
+            </remarks>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.BuildableResource.Name">
+            <summary> Gets or sets the name of the buildable resource. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.BuildableResource.Description">
+            <summary> Gets or sets the description of the buildable resource. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.BuildableResource.TextureAtlas">
+            <summary> Gets or sets the texture atlas for the buildable resource to be used in UI. </summary>
+            <remarks>
+            Use texture atlas or texture image. 
+            Atlas has a priority over texture image.
+            </remarks>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.BuildableResource.TextureImage">
+            <summary> Gets or sets the texture image for the buildable resource to be used in UI. </summary>
+            <remarks>
+            Use texture atlas or texture image. 
+            Atlas has a priority over texture image.
+            </remarks>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.BuildableResource.Object3DModel">
+            <summary> Gets or sets the 3D model for the buildable resource. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.BuildableResource.SnapBehaviour">
+            <summary> Gets or sets the snap behavior of the buildable resource. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.BuildableResource.Size">
+            <summary> Gets or sets the size of the buildable resource. </summary>
+            <remarks>
+            Size is only used for walls and floors.
+            For walls, set X and Y and leave Z at 0.
+            For floors, set X and Z and leave Y at 0.
+            </remarks>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BuildableResource.#ctor">
+            <summary> Initializes a new instance of the <see cref="T:Godot.GodotInGameBuildingSystem.BuildableResource"/> class. </summary>
+            <remarks> Empty constructor required for Godot serialization. </remarks>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.BuildableResourceLibrary">
+            <summary> Represents a library of <see cref="T:Godot.GodotInGameBuildingSystem.BuildableResource"/> </summary>
+            <remarks>
+            This class is used to store an array of buildable objects that can be built in the grid building system.
+            It provides an easy way of creating and managing buildable objects using multiple libraries(for testing or menus etc.).
+            </remarks>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.BuildableResourceLibrary.BuildableObjects">
+            <summary> Gets or sets the array of buildable objects. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BuildableResourceLibrary.#ctor">
+            <summary> Initializes a new instance of the <see cref="T:Godot.GodotInGameBuildingSystem.BuildableResourceLibrary"/> class with an empty array of buildable objects. </summary>
+            <remarks> Empty constructor required for Godot serialization. </remarks>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BuildableResourceLibrary.#ctor(Godot.GodotInGameBuildingSystem.BuildableResource[])">
+            <summary> Initializes a new instance of the <see cref="T:Godot.GodotInGameBuildingSystem.BuildableResourceLibrary"/> class with the specified array of buildable objects. </summary>
+            <param name="buildableObjects"> The array of buildable objects. </param>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BuildableResourceLibrary.GetByName(System.String)">
+            <summary> Gets the buildable resource with the specified name. </summary>
+            <param name="name"> The name of the buildable resource. </param>
+            <returns> The buildable resource with the specified name, or null if not found. </returns>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.SaveObject">
+            <summary> Represents a save object. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.SaveObject.Name">
+            <summary> Gets or sets the name of the object. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.SaveObject.ResourcePath">
+            <summary> Gets or sets the resource path of the object. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.SaveObject.YRotationRadiants">
+            <summary> Gets or sets the Y rotation in radians of the object. </summary>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.SaveGridObject">
+            <summary> Represents a save object placed on a grid. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.SaveGridObject.Position">
+            <summary> Gets or sets the position of the object on the grid. </summary>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.SaveFreeObject">
+            <summary> Represents a save object placed freely in the scene. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.SaveFreeObject.Position">
+            <summary> Gets or sets the position of the object in the scene. </summary>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.GridPosition">
+            <summary> Represents a position on a grid. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.GridPosition.X">
+            <summary> Gets or sets the X coordinate of the position. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.GridPosition.Z">
+            <summary> Gets or sets the Z coordinate of the position. </summary>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.FreePosition">
+            <summary> Represents a position in the scene. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.FreePosition.X">
+            <summary> Gets or sets the X coordinate of the position. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.FreePosition.Y">
+            <summary> Gets or sets the Y coordinate of the position. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.FreePosition.Z">
+            <summary> Gets or sets the Z coordinate of the position. </summary>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.SaveGrid">
+            <summary> Represents a save grid. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.SaveGrid.Index">
+            <summary> Gets or sets the index of the grid. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.SaveGrid.Objects">
+            <summary> Gets or sets the list of objects placed on the grid. </summary>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.SaveFile">
+            <summary> Represents a save file. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.SaveFile.Grids">
+            <summary> Gets or sets the list of grids in the save file. </summary>
+        </member>
+        <member name="P:Godot.GodotInGameBuildingSystem.SaveFile.FreeObjects">
+            <summary> Gets or sets the list of free objects in the save file. </summary>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.BSSaveSystem">
+            <summary> Represents a save system for the grid building system. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BSSaveSystem.#ctor">
+            <summary> Initializes a new instance of the <see cref="T:Godot.GodotInGameBuildingSystem.BSSaveSystem"/> class. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BSSaveSystem.Save(System.Boolean,System.Collections.Generic.List{Godot.GodotInGameBuildingSystem.BuildableInstance},System.Collections.Generic.List{Godot.GodotInGameBuildingSystem.BuildingSystemGrid})">
+            <summary> Saves the current state of the grid building system. </summary>
+            <param name="overwrite"> Whether to overwrite the existing save file. </param>
+            <param name="freeObjectList"> The list of free objects to save. </param>
+            <param name="grids"> The list of grids to save. </param>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BSSaveSystem.Load(System.String,Godot.GodotInGameBuildingSystem.BuildableResourceLibrary,System.Collections.Generic.List{Godot.GodotInGameBuildingSystem.BuildableInstance},Godot.Node3D,System.UInt32,System.Collections.Generic.List{Godot.GodotInGameBuildingSystem.BuildingSystemGrid})">
+            <summary> Loads a saved state of the grid building system. </summary>
+            <param name="filename"> The name of the save file to load. </param>
+            <param name="buildableObjectLibrary"> The buildable object library. </param>
+            <param name="freeObjectList"> The list of free objects to load. </param>
+            <param name="freeObjectContainer"> The container node for free objects. </param>
+            <param name="freeLayerMask"> The layer mask for free objects. </param>
+            <param name="grids"> The list of grids to load. </param>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.SaveExtensions">
+            <summary> Provides extension methods for saving and converting positions and objects in the grid building system. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.SaveExtensions.ToVector3(Godot.GodotInGameBuildingSystem.GridPosition,System.Single)">
+            <summary> Converts a <see cref="T:Godot.GodotInGameBuildingSystem.GridPosition"/> to a <see cref="T:Godot.Vector3"/> with the specified Y coordinate. </summary>
+            <param name="position"> The grid position to convert. </param>
+            <param name="y"> The Y coordinate of the resulting vector. </param>
+            <returns> A <see cref="T:Godot.Vector3"/> representing the converted position. </returns>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.SaveExtensions.ToGridPosition(Godot.Vector3)">
+            <summary> Converts a <see cref="T:Godot.Vector3"/> to a <see cref="T:Godot.GodotInGameBuildingSystem.GridPosition"/>. </summary>
+            <param name="position"> The vector position to convert. </param>
+            <returns> A <see cref="T:Godot.GodotInGameBuildingSystem.GridPosition"/> representing the converted position. </returns>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.SaveExtensions.ToVector3(Godot.GodotInGameBuildingSystem.FreePosition)">
+            <summary> Converts a <see cref="T:Godot.GodotInGameBuildingSystem.FreePosition"/> to a <see cref="T:Godot.Vector3"/>. </summary>
+            <param name="position"> The free position to convert. </param>
+            <returns> A <see cref="T:Godot.Vector3"/> representing the converted position. </returns>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.SaveExtensions.ToFreePosition(Godot.Vector3)">
+            <summary> Converts a <see cref="T:Godot.Vector3"/> to a <see cref="T:Godot.GodotInGameBuildingSystem.FreePosition"/>. </summary>
+            <param name="position"> The vector position to convert. </param>
+            <returns> A <see cref="T:Godot.GodotInGameBuildingSystem.FreePosition"/> representing the converted position. </returns>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.SaveExtensions.ToSaveGridObject(Godot.GodotInGameBuildingSystem.BuildableInstance)">
+            <summary> Converts a <see cref="T:Godot.GodotInGameBuildingSystem.BuildableInstance"/> to a <see cref="T:Godot.GodotInGameBuildingSystem.SaveGridObject"/>. </summary>
+            <param name="buildableObject"> The buildable object to convert. </param>
+            <returns> A <see cref="T:Godot.GodotInGameBuildingSystem.SaveGridObject"/> representing the converted object. </returns>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.SaveExtensions.ToSaveFreeObject(Godot.GodotInGameBuildingSystem.BuildableInstance)">
+            <summary> Converts a <see cref="T:Godot.GodotInGameBuildingSystem.BuildableInstance"/> to a <see cref="T:Godot.GodotInGameBuildingSystem.SaveFreeObject"/>. </summary>
+            <param name="buildableObject"> The buildable object to convert. </param>
+            <returns> A <see cref="T:Godot.GodotInGameBuildingSystem.SaveFreeObject"/> representing the converted object. </returns>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.SaveExtensions.ToSaveGrid(Godot.GodotInGameBuildingSystem.BuildingSystemGrid)">
+            <summary> Converts a <see cref="T:Godot.GodotInGameBuildingSystem.BuildingSystemGrid"/> to a <see cref="T:Godot.GodotInGameBuildingSystem.SaveGrid"/>. </summary>
+            <param name="grid"> The building system grid to convert. </param>
+            <returns> A <see cref="T:Godot.GodotInGameBuildingSystem.SaveGrid"/> representing the converted grid. </returns>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.SaveSystem">
+            <summary> Provides functionality to save and load game data. </summary>
+            <remarks> This is a generic class that can be used to save and load any type of data. </remarks>
+        </member>
+        <member name="F:Godot.GodotInGameBuildingSystem.SaveSystem.useEncryption">
+            <summary> Determines whether encryption is enabled for saving data. </summary>
+            <remarks> Encryption is enabled by default to prevent tempering with save data outside the game. </remarks>
+        </member>
+        <member name="F:Godot.GodotInGameBuildingSystem.SaveSystem.saveExtension">
+            <summary> The file extension used for saving data. </summary>
+            <remarks>
+            The default extension is "json". 
+            Extension can be whatever or nothing, for example ".sav"
+            When encryption is disabled, put "json" for readability as json is used to serialize object to a file.
+            </remarks>
+        </member>
+        <member name="F:Godot.GodotInGameBuildingSystem.SaveSystem.saveFolder">
+            <summary> The folder where save files are stored. </summary>
+            <remarks> 
+            The default folder is "user://".
+            For reference https://docs.godotengine.org/en/stable/tutorials/io/data_paths.html#accessing-persistent-user-data-user
+            </remarks>
+        </member>
+        <member name="F:Godot.GodotInGameBuildingSystem.SaveSystem.baseFileName">
+            <summary> The base file name used for saving data. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.SaveSystem.GenerateSaveFileName">
+            <summary> Generates a unique save file name based on the current date and time. </summary>
+            <returns> The generated save file name. </returns>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.SaveSystem.Save``1(``0,System.String)">
+            <summary> Saves the specified data to a file. </summary>
+            <remarks>
+            It uses JsonSerializer to serialize the data to a JSON string. Be sure to provide valid data types.
+            </remarks>
+            <typeparam name="T"> The type of data to save. </typeparam>
+            <param name="savefile"> The data to save. </param>
+            <param name="saveFileName"> The name of the save file. If not provided, a unique name will be generated. </param>
+            <returns> The name of the saved file. </returns>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.SaveSystem.Load``1(System.String)">
+            <summary> Loads data from the specified save file. </summary>
+            <remarks>
+            It uses JsonSerializer to deserialize the data.
+            </remarks>
+            <typeparam name="T"> The type of data to load. </typeparam>
+            <param name="saveFileName"> The name of the save file to load. </param>
+            <returns> The loaded data. </returns>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.SaveSystem.LoadMostRecentFile``1">
+            <summary> Loads the most recent save file. </summary>
+            <typeparam name="T"> The type of data to load. </typeparam>
+            <returns> The loaded data from the most recent save file. </returns>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.SaveSystem.GetSaveFilesInfo">
+            <summary> Retrieves information about all the save files in the save folder. </summary>
+            <returns> A list of <see cref="T:System.IO.FileInfo"/> objects representing the save files. </returns>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.Blur">
+            <summary> Represents a custom control that applies a blur effect to its content. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.Blur._Ready">
+            <summary> Called when the node is ready. </summary>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.InfoInterface">
+            <summary> Represents the user interface for displaying information about the game. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.InfoInterface._Ready">
+            <summary> Called when the node is ready to be used. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.InfoInterface.OnLevelChanged(System.Int32)">
+            <summary> Called when the level changes. </summary>
+            <param name="level"> The new level. </param>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.InfoInterface.OnBuildModeChanged(System.Boolean)">
+            <summary> Called when the build mode changes. </summary>
+            <param name="enabled"> Whether build mode is enabled or disabled. </param>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.InfoInterface.OnDemolitionModeChanged(System.Boolean)">
+            <summary> Called when the demolition mode changes. </summary>
+            <param name="enabled"> Whether demolition mode is enabled or disabled. </param>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.LoadInterface">
+            <summary> Represents the user interface for loading game files. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.LoadInterface._Ready">
+            <summary> Called when the node is ready to be used. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.LoadInterface.OnCloseButtonPressed">
+            <summary> Event handler for the close button pressed event. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.LoadInterface.OnLoadButtonPressed">
+            <summary> Event handler for the load button pressed event. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.LoadInterface.OnOpenLoadMenu">
+            <summary> Opens the load menu and populates it with save files. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.LoadInterface.OnItemActivated(System.Int32)">
+            <summary> Event handler for the item activated event. </summary>
+            <param name="index"> The index of the activated item. </param>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.LoadInterface.LoadGame(System.String)">
+            <summary> Loads the game with the specified file name. </summary>
+            <param name="fileName"> The name of the file to load. </param>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.MainMenu">
+            <summary> Represents the main menu of the game. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.MainMenu._Ready">
+            <summary> Called when the node enters the scene tree for the first time. </summary>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.ObjectMenu">
+            <summary> Represents the object menu in the grid building system. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.ObjectMenu._Ready">
+            <summary> Called when the node is ready. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.ObjectMenu.PopulateObjectGrid(Godot.GodotInGameBuildingSystem.BuildableResourceLibrary)">
+            <summary> Populates the object grid with buildable objects from the library. </summary>
+            <param name="buildableObjectLibrary">The buildable object library.</param>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.SaveInterface">
+            <summary> Represents the save interface in the UI. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.SaveInterface._Ready">
+            <summary> Called when the node enters the scene tree for the first time. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.SaveInterface.OnOpenSaveMenu">
+            <summary> Opens the save menu. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.SaveInterface.OnNewButtonPressed">
+            <summary> Handles the button press event for the "New" button. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.SaveInterface.OnOverwriteButtonPressed">
+            <summary> Handles the button press event for the "Overwrite" button. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.SaveInterface.OnCloseButtonPressed">
+            <summary> Handles the button press event for the "Close" button. </summary>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.Slot">
+            <summary> Represents a UI slot for displaying single buildable object. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.Slot._Ready">
+            <summary> Called when the node is ready. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.Slot._GuiInput(Godot.InputEvent)">
+            <summary> Called when a GUI input event occurs. </summary>
+            <param name="event">The input event.</param>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.Slot.SetSlotData(Godot.GodotInGameBuildingSystem.BuildableResource)">
+            <summary> Sets the slot data for the slot. </summary>
+            <param name="slotData">The buildable resource data for the slot.</param>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.Slot.SetEventBus(Godot.GodotInGameBuildingSystem.EventBus)">
+            <summary> Sets the event bus for the slot. </summary>
+            <param name="bus">The event bus.</param>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.AnimationUtils">
+            <summary> Utility class for animation-related functions. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.AnimationUtils.AnimatePlacement(Godot.Node3D,Godot.Node3D)">
+            <summary> Animates the placement of a Node3D by scaling it down and then back to its original scale. </summary>
+            <param name="node">The Node3D to animate.</param>
+            <param name="parent">The parent Node3D.</param>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.BSConstants">
+            <summary> Contains constants used in the building system. </summary>
+        </member>
+        <member name="F:Godot.GodotInGameBuildingSystem.BSConstants.DEFAULT_CELL_SIZE">
+            <summary> The default size of a cell. </summary>
+        </member>
+        <member name="F:Godot.GodotInGameBuildingSystem.BSConstants.DEFAULT_CELL_HEIGHT">
+            <summary> The default height of a cell. </summary>
+        </member>
+        <member name="F:Godot.GodotInGameBuildingSystem.BSConstants.DEFAULT_GROUND_LAYER_MASK">
+            <summary> The default ground layer mask. </summary>
+        </member>
+        <member name="F:Godot.GodotInGameBuildingSystem.BSConstants.DEFAULT_FLOOR_LAYER_MASK">
+            <summary> The default floor layer mask. </summary>
+        </member>
+        <member name="F:Godot.GodotInGameBuildingSystem.BSConstants.DEFAULT_WALL_LAYER_MASK">
+            <summary> The default wall layer mask. </summary>
+        </member>
+        <member name="F:Godot.GodotInGameBuildingSystem.BSConstants.DEFAULT_FREE_LAYER_MASK">
+            <summary> The default free layer mask. </summary>
+        </member>
+        <member name="F:Godot.GodotInGameBuildingSystem.BSConstants.DEFAULT_GRID_X_SIZE">
+            <summary> The default X size of the grid. </summary>
+        </member>
+        <member name="F:Godot.GodotInGameBuildingSystem.BSConstants.DEFAULT_GRID_Z_SIZE">
+            <summary> The default Z size of the grid. </summary>
+        </member>
+        <member name="F:Godot.GodotInGameBuildingSystem.BSConstants.DEFAULT_GRID_LEVELS">
+            <summary> The default number of levels in the grid. </summary>
+        </member>
+        <member name="F:Godot.GodotInGameBuildingSystem.BSConstants.DEFAULT_DRAG_THRESHOLD">
+            <summary> The default drag threshold. </summary>
+        </member>
+        <member name="F:Godot.GodotInGameBuildingSystem.BSConstants.DEFAULT_DRAG_VISUAL_GROUND_OFFSET">
+            <summary> The default drag visual ground offset. </summary>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.SnapBehaviour">
+            <summary> Represents the snap behavior of an object. </summary>
+        </member>
+        <member name="F:Godot.GodotInGameBuildingSystem.SnapBehaviour.Ground">
+            <summary> Represents the ground object. </summary>
+        </member>
+        <member name="F:Godot.GodotInGameBuildingSystem.SnapBehaviour.Wall">
+            <summary> Represents the wall object. </summary>
+        </member>
+        <member name="F:Godot.GodotInGameBuildingSystem.SnapBehaviour.Free">
+            <summary> Represents the free object. </summary>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.DragBehavior">
+            <summary> Represents the drag behavior of an object. </summary>
+        </member>
+        <member name="F:Godot.GodotInGameBuildingSystem.DragBehavior.None">
+            <summary> No drag behavior. </summary>
+        </member>
+        <member name="F:Godot.GodotInGameBuildingSystem.DragBehavior.InstantPlacement">
+            <summary> Instantly places the object as the mouse is dragged. </summary>
+        </member>
+        <member name="F:Godot.GodotInGameBuildingSystem.DragBehavior.DelayedPlacement">
+            <summary> This will draw an area and place object after dragging is done. </summary>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.Side">
+            <summary> Represents the sides of a 2D grid. </summary>
+            <remarks>
+            The sides are represented as follows:
+            - MinusZ: The negative Z side
+            - MinusX: The negative X side
+            - Z: The positive Z side
+            - X: The positive X side
+            </remarks>
+        </member>
+        <member name="F:Godot.GodotInGameBuildingSystem.Side.MinusZ">
+            <summary> Represents the negative Z side of a 2D grid. </summary>
+        </member>
+        <member name="F:Godot.GodotInGameBuildingSystem.Side.MinusX">
+            <summary> Represents the negative X side of a 2D grid. </summary>
+        </member>
+        <member name="F:Godot.GodotInGameBuildingSystem.Side.Z">
+            <summary> Represents the positive Z side of a 2D grid. </summary>
+        </member>
+        <member name="F:Godot.GodotInGameBuildingSystem.Side.X">
+            <summary> Represents the positive X side of a 2D grid. </summary>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.BSUtils">
+            <summary> Utility class containing various helper methods for the building system. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BSUtils.GetEventBus(Godot.Node)">
+            <summary> Represents an event bus that allows communication between different parts of the application. </summary>
+            <remarks> Place an EventBus at the top of the scene tree for optimization. </remarks>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BSUtils.GetRaycastPoint(Godot.Vector2,Godot.World3D,Godot.Camera3D,System.UInt32)">
+            <summary> Gets position of the mouse cursor in the 3D world. </summary>
+            <param name="mousePosition"></param>
+            <param name="world"></param>
+            <param name="camera"></param>
+            <param name="layerMask"></param>
+            <returns> Vector3 of intersection point. </returns>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BSUtils.FindMeshInstance(Godot.Node3D)">
+            <summary> Finds the first MeshInstance3D child node of the specified parent node. </summary>
+            <param name="parent">The parent node to search.</param>
+            <returns>The first MeshInstance3D child node found, or null if none is found.</returns>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.BSUtils.RegisterInputActions">
+            <summary> Registers the input actions for the grid building system. </summary>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.CameraController">
+            <summary> Controls the movement and rotation of the camera in a 3D space. </summary>
+            <remarks> 
+            This is a very simple and basic camera controller.
+            Create a Node3D as a parent of Camera3D and attach this script to a parent node to enable camera movement and rotation. 
+            </remarks>
+        </member>
+        <member name="F:Godot.GodotInGameBuildingSystem.CameraController.MovementSpeed">
+            <summary> The movement speed of the camera. </summary>
+        </member>
+        <member name="F:Godot.GodotInGameBuildingSystem.CameraController.RotationSpeed">
+            <summary> The rotation speed of the camera. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.CameraController._PhysicsProcess(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Godot.GodotInGameBuildingSystem.CryptoUtils">
+            <summary> Utility class for cryptographic operations. </summary>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.CryptoUtils.EncryptString(System.String)">
+            <summary> Encrypts a string using AES encryption. </summary>
+            <param name="plainString">The string to encrypt.</param>
+            <returns>The encrypted string.</returns>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.CryptoUtils.GenerateKeyAes">
+            <summary> Generates a new AES key and initialization vector (IV). </summary>
+            <returns>The generated AES key.</returns>
+        </member>
+        <member name="M:Godot.GodotInGameBuildingSystem.CryptoUtils.DecryptString(System.String)">
+            <summary> Decrypts an encrypted string using AES decryption. </summary>
+            <param name="encryptedString">The string to decrypt.</param>
+            <returns>The decrypted string.</returns>
+        </member>
+    </members>
+</doc>

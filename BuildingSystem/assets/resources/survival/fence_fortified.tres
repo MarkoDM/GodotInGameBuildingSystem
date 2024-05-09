@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://b5rnjkldg6b3f"]
+
+[ext_resource type="PackedScene" uid="uid://ckdhcy6ul36ct" path="res://BuildingSystem/assets/scenes/survival/fence_fortified.tscn" id="1_ua4y6"]
+[ext_resource type="Texture2D" uid="uid://bjxjpjtoog46c" path="res://BuildingSystem/assets/textures/fence-fortified.png" id="2_a577x"]
+[ext_resource type="Script" path="res://BuildingSystem/Scripts/Resources/BuildableResource.cs" id="3_dd5lr"]
+
+[resource]
+script = ExtResource("3_dd5lr")
+Name = "Fence Fortified"
+Description = ""
+TextureImage = ExtResource("2_a577x")
+Object3DModel = ExtResource("1_ua4y6")
+SnapBehaviour = 1
+Size = Vector3i(1, 1, 0)

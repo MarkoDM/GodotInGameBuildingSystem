@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://7oemk3o3bjtl"]
+
+[ext_resource type="PackedScene" uid="uid://dsofie7ojedib" path="res://BuildingSystem/assets/scenes/survival/floor_old.tscn" id="1_syi62"]
+[ext_resource type="Texture2D" uid="uid://bysju75v8emc1" path="res://BuildingSystem/assets/textures/floor-old.png" id="2_cc6bo"]
+[ext_resource type="Script" path="res://BuildingSystem/Scripts/Resources/BuildableResource.cs" id="3_t3v46"]
+
+[resource]
+script = ExtResource("3_t3v46")
+Name = "Floor Old"
+Description = ""
+TextureImage = ExtResource("2_cc6bo")
+Object3DModel = ExtResource("1_syi62")
+SnapBehaviour = 0
+Size = Vector3i(1, 0, 1)

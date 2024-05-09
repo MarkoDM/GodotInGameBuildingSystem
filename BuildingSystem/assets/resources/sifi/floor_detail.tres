@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://bg0ndxtldonpj"]
+
+[ext_resource type="PackedScene" uid="uid://coxc1y8q587pc" path="res://BuildingSystem/assets/scenes/sifi/floor_detail.tscn" id="1_4wtki"]
+[ext_resource type="Script" path="res://BuildingSystem/Scripts/Resources/BuildableResource.cs" id="2_6xu64"]
+[ext_resource type="Texture2D" uid="uid://dg3vtq8stjq30" path="res://BuildingSystem/assets/textures/sifi/floor-detail.png" id="2_myj2d"]
+
+[resource]
+script = ExtResource("2_6xu64")
+Name = "floor-detail"
+Description = ""
+TextureImage = ExtResource("2_myj2d")
+Object3DModel = ExtResource("1_4wtki")
+SnapBehaviour = 0
+Size = Vector3i(1, 0, 1)

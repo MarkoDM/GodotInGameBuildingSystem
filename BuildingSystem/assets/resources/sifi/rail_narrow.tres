@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://d3deobte1grv"]
+
+[ext_resource type="PackedScene" uid="uid://bs0k2baw83odg" path="res://BuildingSystem/assets/scenes/sifi/rail_narrow.tscn" id="1_voov5"]
+[ext_resource type="Texture2D" uid="uid://ykpwtt1s4ut7" path="res://BuildingSystem/assets/textures/sifi/rail-narrow.png" id="2_jbtyd"]
+[ext_resource type="Script" path="res://BuildingSystem/Scripts/Resources/BuildableResource.cs" id="2_qqw0f"]
+
+[resource]
+script = ExtResource("2_qqw0f")
+Name = "rail-narrow"
+Description = ""
+TextureImage = ExtResource("2_jbtyd")
+Object3DModel = ExtResource("1_voov5")
+SnapBehaviour = 1
+Size = Vector3i(1, 1, 0)

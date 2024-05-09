@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://ca25ua5gl62rk"]
+
+[ext_resource type="PackedScene" uid="uid://8qx7eybw3vbf" path="res://BuildingSystem/assets/scenes/sifi/wall_narrow.tscn" id="1_bahk1"]
+[ext_resource type="Texture2D" uid="uid://bpjwbhd7k4wf7" path="res://BuildingSystem/assets/textures/sifi/wall.png" id="2_1pt1a"]
+[ext_resource type="Script" path="res://BuildingSystem/Scripts/Resources/BuildableResource.cs" id="2_in08r"]
+
+[resource]
+script = ExtResource("2_in08r")
+Name = "wall-narrow"
+Description = ""
+TextureImage = ExtResource("2_1pt1a")
+Object3DModel = ExtResource("1_bahk1")
+SnapBehaviour = 1
+Size = Vector3i(1, 2, 0)

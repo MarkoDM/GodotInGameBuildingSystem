@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://sqm8ifc4ihoq"]
+
+[ext_resource type="PackedScene" uid="uid://dtgq67l4mvd56" path="res://BuildingSystem/assets/scenes/sifi/table_display_small.tscn" id="1_sqp74"]
+[ext_resource type="Script" path="res://BuildingSystem/Scripts/Resources/BuildableResource.cs" id="2_688vr"]
+[ext_resource type="Texture2D" uid="uid://dmn71mfirdatx" path="res://BuildingSystem/assets/textures/sifi/table-display-small.png" id="2_ms3dy"]
+
+[resource]
+script = ExtResource("2_688vr")
+Name = "table-display-small"
+Description = ""
+TextureImage = ExtResource("2_ms3dy")
+Object3DModel = ExtResource("1_sqp74")
+SnapBehaviour = 2
+Size = Vector3i(0, 0, 0)

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c64kie8j0vqw5"]
+
+[ext_resource type="Script" path="res://BuildingSystem/Scripts/EventBus.cs" id="1_devrw"]
+
+[node name="EventBus" type="Node"]
+script = ExtResource("1_devrw")

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://b10dkchrjqhnk"]
+
+[ext_resource type="PackedScene" uid="uid://n6urd8ag7axf" path="res://BuildingSystem/assets/scenes/sifi/wall_window_banner.tscn" id="1_ev2w3"]
+[ext_resource type="Script" path="res://BuildingSystem/Scripts/Resources/BuildableResource.cs" id="2_4vtgc"]
+[ext_resource type="Texture2D" uid="uid://onyc5snxw4tr" path="res://BuildingSystem/assets/textures/sifi/wall-window.png" id="2_rk5fm"]
+
+[resource]
+script = ExtResource("2_4vtgc")
+Name = "wall-window-banner"
+Description = ""
+TextureImage = ExtResource("2_rk5fm")
+Object3DModel = ExtResource("1_ev2w3")
+SnapBehaviour = 1
+Size = Vector3i(2, 2, 0)

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://d14e1vrreb32m"]
+
+[ext_resource type="PackedScene" uid="uid://cayev4qqmrwuk" path="res://BuildingSystem/assets/scenes/sifi/rail.tscn" id="1_6e80r"]
+[ext_resource type="Texture2D" uid="uid://cs2r2mqjsk6a3" path="res://BuildingSystem/assets/textures/sifi/rail.png" id="2_6os7c"]
+[ext_resource type="Script" path="res://BuildingSystem/Scripts/Resources/BuildableResource.cs" id="2_l0yme"]
+
+[resource]
+script = ExtResource("2_l0yme")
+Name = "rail"
+Description = ""
+TextureImage = ExtResource("2_6os7c")
+Object3DModel = ExtResource("1_6e80r")
+SnapBehaviour = 1
+Size = Vector3i(2, 1, 0)

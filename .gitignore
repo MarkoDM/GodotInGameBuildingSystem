@@ -1,0 +1,27 @@
+# Godot 4+ specific ignores
+.godot/
+# Godot-specific ignores
+**/*.import
+export_presets.cfg
+.export/
+# Mono-specific ignores
+.mono/
+# Ignore Godot user-specific files
+*.tscn.user
+*.tres.user
+*.godot/user.scn
+*.user
+*.lock
+# Ignore system files
+.DS_Store/
+Thumbs.db
+# Ignore build results
+bin/
+obj/
+# Addons (ignore unless you're developing the addon)
+addons/
+# If using VSCode, you might want to ignore the .vscode directory
+# .vscode/
+
+# assets
+_site

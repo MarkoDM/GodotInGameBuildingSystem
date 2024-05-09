@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://hw3jd6q4b72h"]
+
+[ext_resource type="Script" path="res://BuildingSystem/Scripts/MouseTile.cs" id="1_n3ki1"]
+[ext_resource type="Texture2D" uid="uid://pddo5efyqprx" path="res://BuildingSystem/assets/textures/grid_cell_transparent.png" id="2_kind0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o6xcf"]
+transparency = 1
+albedo_texture = ExtResource("2_kind0")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_g5wrb"]
+material = SubResource("StandardMaterial3D_o6xcf")
+size = Vector2(1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_keqbi"]
+size = Vector3(0.8, 0.3, 0.8)
+
+[node name="MouseTile" type="Node3D"]
+script = ExtResource("1_n3ki1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("PlaneMesh_g5wrb")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_keqbi")

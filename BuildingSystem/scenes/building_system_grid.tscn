@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://113tbe64sr7b"]
+
+[ext_resource type="Script" path="res://BuildingSystem/Scripts/BuildingSystemGrid.cs" id="1_grplm"]
+[ext_resource type="Shader" path="res://BuildingSystem/assets/shaders/grid_lines.gdshader" id="2_emnks"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n7nap"]
+size = Vector3(200, 1, 200)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h8xyo"]
+render_priority = 0
+shader = ExtResource("2_emnks")
+shader_parameter/gridlineOnEvery = 1.0
+shader_parameter/lineThickness = 0.01
+shader_parameter/originOffset = Vector2(0, 0)
+shader_parameter/color = Color(0, 0.87451, 0.72549, 0.501961)
+shader_parameter/glowStrength = 0.3
+shader_parameter/glowSpread = 0.05
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_rs7sg"]
+material = SubResource("ShaderMaterial_h8xyo")
+size = Vector2(200, 200)
+subdivide_width = 200
+subdivide_depth = 200
+
+[node name="Grid" type="Node3D"]
+script = ExtResource("1_grplm")
+
+[node name="GroundStaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="Ground" type="CollisionShape3D" parent="GroundStaticBody3D"]
+shape = SubResource("BoxShape3D_n7nap")
+disabled = true
+
+[node name="GridVisual" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("PlaneMesh_rs7sg")

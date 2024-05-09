@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://bme8yaji0dmb7"]
+
+[ext_resource type="PackedScene" uid="uid://cf7e86koubtu2" path="res://BuildingSystem/assets/scenes/sifi/table_display_planet.tscn" id="1_l5awb"]
+[ext_resource type="Texture2D" uid="uid://nfywrs3n7q0s" path="res://BuildingSystem/assets/textures/sifi/table-display-planet.png" id="2_o6w20"]
+[ext_resource type="Script" path="res://BuildingSystem/Scripts/Resources/BuildableResource.cs" id="2_xhbgd"]
+
+[resource]
+script = ExtResource("2_xhbgd")
+Name = "table-display-planet"
+Description = ""
+TextureImage = ExtResource("2_o6w20")
+Object3DModel = ExtResource("1_l5awb")
+SnapBehaviour = 2
+Size = Vector3i(0, 0, 0)

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://c776liuhmficw"]
+
+[ext_resource type="PackedScene" uid="uid://dcx7usag5pt8m" path="res://BuildingSystem/assets/scenes/sifi/bed_double.tscn" id="1_0q17y"]
+[ext_resource type="Texture2D" uid="uid://5ijol3hnvy33" path="res://BuildingSystem/assets/textures/sifi/bed-double.png" id="2_cydcc"]
+[ext_resource type="Script" path="res://BuildingSystem/Scripts/Resources/BuildableResource.cs" id="2_eur8x"]
+
+[resource]
+script = ExtResource("2_eur8x")
+Name = "bed-double"
+Description = ""
+TextureImage = ExtResource("2_cydcc")
+Object3DModel = ExtResource("1_0q17y")
+SnapBehaviour = 2
+Size = Vector3i(2, 0, 0)

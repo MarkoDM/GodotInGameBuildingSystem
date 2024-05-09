@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://b50banourqb45"]
+
+[ext_resource type="PackedScene" uid="uid://b6buwahebv6dr" path="res://BuildingSystem/assets/scenes/sifi/wall_window_open.tscn" id="1_y8vrl"]
+[ext_resource type="Script" path="res://BuildingSystem/Scripts/Resources/BuildableResource.cs" id="2_by83g"]
+[ext_resource type="Texture2D" uid="uid://onyc5snxw4tr" path="res://BuildingSystem/assets/textures/sifi/wall-window.png" id="2_kbt0t"]
+
+[resource]
+script = ExtResource("2_by83g")
+Name = "wall-window-open"
+Description = ""
+TextureImage = ExtResource("2_kbt0t")
+Object3DModel = ExtResource("1_y8vrl")
+SnapBehaviour = 1
+Size = Vector3i(2, 2, 0)

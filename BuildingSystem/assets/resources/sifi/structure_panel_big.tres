@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://uhkcseie22yc"]
+
+[ext_resource type="PackedScene" uid="uid://dqxsm44fgmrxe" path="res://BuildingSystem/assets/scenes/sifi/structure_panel_big.tscn" id="1_26myr"]
+[ext_resource type="Script" path="res://BuildingSystem/Scripts/Resources/BuildableResource.cs" id="2_5udke"]
+[ext_resource type="Texture2D" uid="uid://b2s1npm3bdtae" path="res://BuildingSystem/assets/textures/sifi/structure-panel.png" id="2_50ypw"]
+
+[resource]
+script = ExtResource("2_5udke")
+Name = "structure-panel-big"
+Description = ""
+TextureImage = ExtResource("2_50ypw")
+Object3DModel = ExtResource("1_26myr")
+SnapBehaviour = 0
+Size = Vector3i(2, 0, 2)

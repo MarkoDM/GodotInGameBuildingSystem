@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://dw00sbcirn0jl"]
+
+[ext_resource type="PackedScene" uid="uid://bqnxn56mujbj5" path="res://BuildingSystem/assets/scenes/sifi/table.tscn" id="1_dvfc5"]
+[ext_resource type="Texture2D" uid="uid://cybv23cw53yni" path="res://BuildingSystem/assets/textures/sifi/table.png" id="2_7spis"]
+[ext_resource type="Script" path="res://BuildingSystem/Scripts/Resources/BuildableResource.cs" id="2_gfdnh"]
+
+[resource]
+script = ExtResource("2_gfdnh")
+Name = "table"
+Description = ""
+TextureImage = ExtResource("2_7spis")
+Object3DModel = ExtResource("1_dvfc5")
+SnapBehaviour = 2
+Size = Vector3i(0, 0, 0)

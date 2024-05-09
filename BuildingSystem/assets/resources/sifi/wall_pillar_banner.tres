@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://dl7tinqlp0rt5"]
+
+[ext_resource type="PackedScene" uid="uid://8w22teqgcoh3" path="res://BuildingSystem/assets/scenes/sifi/wall_pillar_banner.tscn" id="1_7hq8f"]
+[ext_resource type="Texture2D" uid="uid://dhnmj5b7kqond" path="res://BuildingSystem/assets/textures/sifi/wall-banner.png" id="2_5av0n"]
+[ext_resource type="Script" path="res://BuildingSystem/Scripts/Resources/BuildableResource.cs" id="2_51fat"]
+
+[resource]
+script = ExtResource("2_51fat")
+Name = "wall-pillar-banner"
+Description = ""
+TextureImage = ExtResource("2_5av0n")
+Object3DModel = ExtResource("1_7hq8f")
+SnapBehaviour = 1
+Size = Vector3i(2, 2, 0)

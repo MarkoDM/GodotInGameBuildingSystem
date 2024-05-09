@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://b6x72y0d6d1w5"]
+
+[ext_resource type="PackedScene" uid="uid://b0xiiblygko51" path="res://BuildingSystem/assets/scenes/sifi/chair_armrest.tscn" id="1_jonei"]
+[ext_resource type="Texture2D" uid="uid://d0jny4pcd5fe4" path="res://BuildingSystem/assets/textures/sifi/chair-armrest.png" id="2_72mwv"]
+[ext_resource type="Script" path="res://BuildingSystem/Scripts/Resources/BuildableResource.cs" id="2_gc7n4"]
+
+[resource]
+script = ExtResource("2_gc7n4")
+Name = "chair-armrest"
+Description = ""
+TextureImage = ExtResource("2_72mwv")
+Object3DModel = ExtResource("1_jonei")
+SnapBehaviour = 2
+Size = Vector3i(0, 0, 0)

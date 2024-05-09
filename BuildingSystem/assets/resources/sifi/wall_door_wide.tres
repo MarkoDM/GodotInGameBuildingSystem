@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://cg4k8qq7eo8cv"]
+
+[ext_resource type="PackedScene" uid="uid://coq8ttv0lqegu" path="res://BuildingSystem/assets/scenes/sifi/wall_door_wide.tscn" id="1_6yr4s"]
+[ext_resource type="Texture2D" uid="uid://dfahr55h0i12k" path="res://BuildingSystem/assets/textures/sifi/wall-door.png" id="2_2qrwf"]
+[ext_resource type="Script" path="res://BuildingSystem/Scripts/Resources/BuildableResource.cs" id="2_f6i50"]
+
+[resource]
+script = ExtResource("2_f6i50")
+Name = "wall-door-wide"
+Description = ""
+TextureImage = ExtResource("2_2qrwf")
+Object3DModel = ExtResource("1_6yr4s")
+SnapBehaviour = 1
+Size = Vector3i(2, 2, 0)

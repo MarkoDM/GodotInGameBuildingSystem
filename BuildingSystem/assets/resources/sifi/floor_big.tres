@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://s6a8h21clgif"]
+
+[ext_resource type="PackedScene" uid="uid://djmlxj1bgi7cg" path="res://BuildingSystem/assets/scenes/sifi/floor_big.tscn" id="1_8mggo"]
+[ext_resource type="Texture2D" uid="uid://by7ppt5ddur11" path="res://BuildingSystem/assets/textures/sifi/floor.png" id="2_le7ah"]
+[ext_resource type="Script" path="res://BuildingSystem/Scripts/Resources/BuildableResource.cs" id="2_tgefr"]
+
+[resource]
+script = ExtResource("2_tgefr")
+Name = "floor-big"
+Description = ""
+TextureImage = ExtResource("2_le7ah")
+Object3DModel = ExtResource("1_8mggo")
+SnapBehaviour = 0
+Size = Vector3i(2, 0, 2)
