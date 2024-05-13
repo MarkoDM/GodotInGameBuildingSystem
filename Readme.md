@@ -64,6 +64,20 @@ To get started with Building System:
 
 For more detailed information about the classes and methods in the system, refer to the GodotInGameBuildingSystem.xml documentation file.
 
+## Q&A
+
+**Why these features and where is that one? (and similar questions)**
+
+One of the most challenging aspects was determining the scope. I aimed to establish a common foundation applicable across multiple game types. Given that features would significantly diverge depending on the game type, I decided to stop at a point that I believe serves as a common ground.
+
+**Did you use AI (such as Copilot, ChatGPT, etc.)?**
+
+Yes, I utilized AI to correct grammar and spelling errors, as I am not a native English speaker. Additionally, I used it to generate an icon for the Asset Store. That's all.
+
+**Are there plans for a GDScript version?**
+
+Yes, I am currently working on developing a GDScript version.
+
 ## Contributing
 
 Contributions are what make the open-source community such a fantastic place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
